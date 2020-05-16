@@ -8,7 +8,7 @@ describe("This is our first test!", () => {
 
 describe("Testing our form inputs", () => {
   beforeEach(function () {
-    cy.visit("http://localhost:3001/");
+    cy.visit("http://localhost:3000/");
   });
   it("Input Name into the Name Input", () => {
     //Arrange - Get the element
@@ -19,13 +19,22 @@ describe("Testing our form inputs", () => {
       .should("have.value", "Kyle Nelson");
   });
   it("Input Email into the Email Input", () => {
-      cy.get('[for="email"] > input')
+    cy.get('[for="email"] > input')
       .type("kyle-nelson@lambdastudents.com")
-      .should("have.value", "kyle-nelson@lambdastudents.com")
-  })
+      .should("have.value", "kyle-nelson@lambdastudents.com");
+  });
   it("Check for Terms & Conditions Input", () => {
-    cy.get('.terms > input')
-    .type("true")
-    .should("have.value", "ontrue")
-  })
+    cy.get('input[type="checkbox"]').check().should("be.checked");
+  });
+  it("Checks for form submission", () => {
+    cy.get("form").submit();
+  });
+});
+
+describe("If input is blank", () => {
+  it("display form validation", () => {
+    cy.get('textarea').type("Yolo").should("not.have.value", "").clear();
+    cy.get("form").submit();
+    cy.get(".error");
+  });
 });
