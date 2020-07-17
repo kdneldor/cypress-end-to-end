@@ -19,5 +19,7 @@ describe("form test", () => {
     cy.get(".terms > input").click().should('have.checked', true);
 
     cy.get("button").should("not.be.disabled");
+
+    cy.get('form').submit()
   });
 });
